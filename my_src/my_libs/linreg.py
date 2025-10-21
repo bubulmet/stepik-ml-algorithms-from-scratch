@@ -21,7 +21,7 @@ class MyLineReg():
     @staticmethod
     def _calc_mse_gradient(X: np.array, y_true: np.array, y_hat: np.array):
         n = y_true.shape[0]
-        return np.dot((y_true - y_hat), X) * (2 / n)
+        return np.dot((y_hat - y_true), X) * (2 / n)
 
 
     def predict(self, X: pd.DataFrame):
@@ -46,7 +46,7 @@ class MyLineReg():
             loss = self._calc_mse_loss(y_true=y_np, y_hat=y_hat)
             gradient = self._calc_mse_gradient(X=X_np, y_true=y_np, y_hat=y_hat)
 
-            weights = weights + self.learning_rate * gradient
+            weights = weights - self.learning_rate * gradient
 
             learning_curve.append(loss)
 
